@@ -1,0 +1,6 @@
+[
+  { "name": "Logo", "image": "/assets/clients/logo-1.png" },
+  { "name": "Logo Ipsum", "image": "/assets/clients/logo-2.png" },
+  { "name": "Ipsum", "image": "/assets/clients/logo-3.png" },
+  { "name": "Wave", "image": "/assets/clients/logo-wave.png" }
+]

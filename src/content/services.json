@@ -1,0 +1,29 @@
+[
+  {
+    "id": "portrait-photography",
+    "title": "Portrait Photography",
+    "description": "For individuals, couples, and professionals.",
+    "tags": ["Studio or outdoor", "Natural editing", "High-res files."],
+    "image": "/assets/support/portrait-camera-top.png",
+    "icon": "/assets/support/icon-portrait.svg",
+    "layout": "wide"
+  },
+  {
+    "id": "shot-with-top-gear",
+    "title": "Shot with Top Gear",
+    "description": "Using premium equipment for stunning images.",
+    "tags": ["Lighting", "Direction", "Editing"],
+    "image": "/assets/support/camera-macro.png",
+    "icon": "/assets/support/icon-topgear.svg",
+    "layout": "wide"
+  },
+  {
+    "id": "branding-lifestyle-photography",
+    "title": "Branding & Lifestyle Photography",
+    "description": "Custom visuals that tell your story.",
+    "tags": ["On-location", "Tailored brand styling", "Fast delivery."],
+    "image": "/assets/support/studio-wide.png",
+    "icon": "/assets/support/icon-branding.svg",
+    "layout": "tall"
+  }
+]

@@ -1,26 +1,197 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+  Design tokens extracted from Figma via get_variable_defs on:
+  Home-Desktop-LG (5075:25308), Components (5075:23761), Projects (5721:9824),
+  Contact (5075:37167), Typography page (5075:22971).
+  Values NOT bound to a Figma variable (only visible as raw fills/gradients in
+  get_design_context output) are marked "measured" below rather than "token".
+*/
+@theme {
+  /* Color primitives -- Colors/* variables */
+  --color-primary: #5013c7;
+  --color-primary-0: rgba(80, 19, 199, 0);
+  --color-secondary: #4f1ad6;
+  --color-accent: #8145f5;
+  --color-alpha: #080808;
+  --color-alpha-20: rgba(8, 8, 8, 0.2);
+  --color-misty: #141414;
+  --color-misty-0: rgba(20, 20, 20, 0);
+  --color-misty-20: rgba(20, 20, 20, 0.2);
+  --color-omega: #ffffff;
+  --color-omega-80: rgba(255, 255, 255, 0.8);
+  --color-omega-70: rgba(255, 255, 255, 0.7);
+  --color-omega-60: rgba(255, 255, 255, 0.6);
+  --color-omega-50: rgba(255, 255, 255, 0.5);
+  --color-omega-40: rgba(255, 255, 255, 0.4);
+  --color-omega-10: rgba(255, 255, 255, 0.1);
+  --color-omega-0: rgba(255, 255, 255, 0);
+  --color-black: #000000;
+  /* measured: not bound to a variable, read from applied text fill in get_design_context */
+  --color-muted: #797b85;
+  --color-divider: #e9e9e9;
+  /*
+    Accessibility fix, not a Figma token: the Figma design uses raw
+    Colors/Primary/primary (#5013c7) for small link text on black, which is
+    a 2.26:1 contrast ratio -- fails WCAG AA (needs 4.5:1). Same brand hue,
+    lightened until it clears the threshold (7:1), used only for inline text
+    links on dark backgrounds; buttons/surfaces keep the real primary token.
+  */
+  --color-link: #9d82fa;
+
+  /* Typography -- Font/* and Heading//Body//Button/Caption variables (Typography doc page) */
+  --text-h1: 56px;
+  --text-h2: 40px;
+  --text-h3: 36px;
+  --text-h4: 24px;
+  --text-h5: 20px;
+  --text-body1: 20px;
+  --text-body2: 18px;
+  --text-body3: 16px;
+  --text-body4: 14px;
+  --text-button1: 20px;
+  --text-button2: 18px;
+  --text-button3: 16px;
+  --text-caption1: 12px;
+  --text-caption2: 10px;
+
+  /* Spacing / radius -- spacing/static/* and size/* variables */
+  --spacing-gap-tight: 8px;
+  --spacing-gap-inline: 4px;
+  --spacing-action-padding-large-y: 16px;
+  --spacing-action-padding-default-y: 12px;
+  --spacing-action-padding-small-y: 8px;
+  --radius-action: 999px;
+  --size-action-min-height-1: 52px;
+  --size-action-min-height-2: 44px;
+  --size-action-min-height-3: 36px;
+  --border-default: 1px;
+  --blur-glass: 4px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/*
+  NOTE: earlier versions of this file redefined --breakpoint-xs/sm/md/lg
+  (e.g. --breakpoint-lg: 1366px) to mirror Figma's LG frame width. That is
+  wrong for Tailwind's `lg:`/`md:` variants -- it silently broke every
+  `lg:`/`md:` utility on the nav (full nav links + CTA only ever showing
+  above 1366px, hamburger showing everywhere below that), which combined
+  with a separate `hidden` vs base-`inline-flex` specificity bug made the
+  desktop CTA render at every width. Removed: Tailwind's DEFAULT scale
+  (sm=640, md=768, lg=1024, xl=1280) is used instead, which also happens to
+  line up with Figma's real MD=1024 tablet nav frame.
+*/
+
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/*
+  font-family deliberately NOT set here: an earlier version had
+  `font-family: var(--font-display)` (a hand-written "DM Sans", ui-sans-serif
+  fallback chain) on this unlayered rule, which -- per the CSS cascade
+  layers spec -- beats ANY declaration inside a Tailwind @layer regardless
+  of specificity. That silently overrode the `font-[family-name:var(--font-dm-sans)]`
+  Tailwind utility actually applied to <body> in layout.tsx, so the page
+  never rendered through next/font's real font-face/fallback pairing at
+  all (it only *looked* right because both chains happened to start with
+  the literal string "DM Sans"). Font-family now lives solely on <body>'s
+  className in layout.tsx.
+*/
+/*
+  font-optical-sizing: auto (the CSS spec default -- set explicitly here so
+  no reset/base stylesheet can flip it to 'none') lets the browser drive
+  DM Sans's opsz axis from each element's actual font-size, same as Figma's
+  own renderer. An earlier version hardcoded
+  `font-variation-settings: "opsz" 14` globally (matching a value that
+  appears on nearly every text node in get_design_context's output) --
+  turns out Figma prints that "opsz 14" annotation on every style
+  regardless of actual size, it is not a real per-style value. Measured
+  proof: at font-size 56px, opsz-auto renders "We turn ideas into
+  cinematic" at 718.3px, matching Figma's own screenshot measurement of
+  717px for that exact string almost exactly; a hardcoded opsz 14 measured
+  789px (11% too wide), which is what pushed headings to wrap onto an
+  extra line versus the design. This single property replaces the
+  per-component opsz overrides that used to live on Tag.tsx etc. -- auto
+  handles every text style/size at once instead of hand-picking values for
+  the ones that got noticed.
+*/
+body {
+  background: var(--color-black);
+  color: var(--color-omega);
+  font-optical-sizing: auto;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.animate-marquee {
+  animation: marquee 24s linear infinite;
+}
+
+/*
+  Testimonials ("Hear from Our User") get their own, slower duration.
+  get_motion_context returned no keyframe data for the Slider component
+  (14:19184) -- same confirmed limitation as every other animated element
+  in this file -- so there's no extracted speed to match; this is a
+  deliberately slower approximation (was sharing the 24s client-logo-ticker
+  timing, which read as too fast for longer testimonial cards to be
+  comfortably readable while scrolling past).
+*/
+.animate-marquee-slow {
+  animation: marquee 60s linear infinite;
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 40s linear infinite;
+}
+
+/*
+  "Live/recording" blink for the FeaturedIntro dot (ss/missing_video.png).
+  No Figma prototype data for this (same confirmed limitation as every
+  other animated element in this file) -- a steady on/off blink at a
+  reading-friendly ~1.6s cycle, not a fast alarm-style flash.
+*/
+@keyframes blink-dot {
+  0%,
+  40% {
+    opacity: 1;
+  }
+  50%,
+  90% {
+    opacity: 0.25;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-blink-dot {
+  animation: blink-dot 1.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }

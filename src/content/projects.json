@@ -1,0 +1,74 @@
+[
+  {
+    "id": "solstice-festival-aftermovie",
+    "title": "Solstice Festival — Aftermovie",
+    "description": "A three-day music festival distilled into a five-minute cinematic recap, shot on four camera crews.",
+    "category": "Film",
+    "media": null,
+    "link": "/projects/solstice-festival-aftermovie"
+  },
+  {
+    "id": "nova-skincare-brand-film",
+    "title": "Nova Skincare — Brand Film",
+    "description": "A moody, product-led brand film built around natural light and slow-motion macro texture shots.",
+    "category": "Brand Film",
+    "media": null,
+    "link": "/projects/nova-skincare-brand-film"
+  },
+  {
+    "id": "orbit-sneakers-campaign",
+    "title": "Orbit Sneakers — Launch Campaign",
+    "description": "Editorial stills and a 30-second teaser for a sneaker drop, shot across two studio days.",
+    "category": "Photography",
+    "media": null,
+    "link": "/projects/orbit-sneakers-campaign"
+  },
+  {
+    "id": "meridian-hotels-portrait-series",
+    "title": "Meridian Hotels — Portrait Series",
+    "description": "Staff and guest portraiture for a boutique hotel group's rebrand, shot on location.",
+    "category": "Portrait",
+    "media": null,
+    "link": "/projects/meridian-hotels-portrait-series"
+  },
+  {
+    "id": "cinder-coffee-documentary",
+    "title": "Cinder Coffee — Origin Documentary",
+    "description": "A short-form documentary following a coffee roastery from bean sourcing to storefront.",
+    "category": "Documentary",
+    "media": null,
+    "link": "/projects/cinder-coffee-documentary"
+  },
+  {
+    "id": "atlas-fitness-social-series",
+    "title": "Atlas Fitness — Social Series",
+    "description": "A recurring monthly shoot producing vertical social content for a fitness studio chain.",
+    "category": "Social",
+    "media": null,
+    "link": "/projects/atlas-fitness-social-series"
+  },
+  {
+    "id": "verdant-architecture-lookbook",
+    "title": "Verdant Architecture — Lookbook",
+    "description": "An architectural photography lookbook shot at golden hour across three finished residential builds.",
+    "category": "Photography",
+    "media": null,
+    "link": "/projects/verdant-architecture-lookbook"
+  },
+  {
+    "id": "lumen-jewelry-campaign",
+    "title": "Lumen Jewelry — Product Campaign",
+    "description": "Macro product photography and a stop-motion teaser for a fine jewelry seasonal collection.",
+    "category": "Brand Film",
+    "media": null,
+    "link": "/projects/lumen-jewelry-campaign"
+  },
+  {
+    "id": "harbor-collective-event-recap",
+    "title": "Harbor Collective — Event Recap",
+    "description": "Same-week turnaround coverage and highlight reel for a two-day creative industry summit.",
+    "category": "Film",
+    "media": null,
+    "link": "/projects/harbor-collective-event-recap"
+  }
+]
