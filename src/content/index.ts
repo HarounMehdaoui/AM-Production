@@ -13,7 +13,7 @@ import {
   circleTickerImageSchema,
   heroMediaSchema,
 } from "./schema";
-import { isCmsConfigured, fetchFromCms } from "@/lib/cms";
+import { isCmsConfigured, fetchFromCms, fetchFromCmsOptional } from "@/lib/cms";
 
 /**
  * One async getter per content type -- the seam between "static JSON
@@ -66,7 +66,8 @@ export async function getCircleTickerImages() {
 }
 
 export async function getHeroMedia() {
-  return isCmsConfigured
-    ? fetchFromCms("/v1/hero-media", heroMediaSchema)
-    : heroMediaSchema.parse(heroMediaRaw);
+  const localDefault = heroMediaSchema.parse(heroMediaRaw);
+  if (!isCmsConfigured) return localDefault;
+  const cmsValue = await fetchFromCmsOptional("/v1/hero-media", heroMediaSchema);
+  return cmsValue ?? localDefault;
 }

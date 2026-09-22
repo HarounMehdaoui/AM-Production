@@ -29,3 +29,19 @@ export async function fetchFromCms<T>(path: string, schema: z.ZodType<T>): Promi
   }
   return schema.parse(await res.json());
 }
+
+/**
+ * Same as fetchFromCms, but a 404 resolves to `null` instead of throwing --
+ * for singleton entities (hero media) that legitimately don't exist yet
+ * during initial CMS setup. A brand-new CMS with nothing configured should
+ * degrade that one section to its default, not 500 the whole page it's on.
+ * Any other non-2xx status still throws; only "not created yet" is expected.
+ */
+export async function fetchFromCmsOptional<T>(path: string, schema: z.ZodType<T>): Promise<T | null> {
+  const res = await fetch(`${CMS_API_URL}${path}`, { next: { revalidate: 60 } });
+  if (res.status === 404) return null;
+  if (!res.ok) {
+    throw new Error(`CMS request failed: GET ${path} -> ${res.status}`);
+  }
+  return schema.parse(await res.json());
+}
