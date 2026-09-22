@@ -7,6 +7,7 @@ import { siteInfo } from "@/content/site";
 import navData from "@/content/nav.json";
 import { Button } from "@/components/ui/Button";
 import { NavDrawer } from "@/components/layout/NavDrawer";
+import { isActiveNavHref } from "@/lib/nav";
 
 /**
  * Breakpoint behaviour matches Figma's real Top Nav component variants:
@@ -64,7 +65,7 @@ export function TopNav() {
               // which Home section is currently scrolled into view, and a
               // real scroll-spy is out of scope. Marking them active
               // whenever pathname === "/" would make them permanently bold.
-              const active = pathname === item.href;
+              const active = isActiveNavHref(pathname, item.href);
               return (
                 <Link
                   key={item.href}

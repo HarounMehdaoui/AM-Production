@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Reveal } from "@/components/ui/Reveal";
 import { ContactForm } from "@/components/contact/ContactForm";
+import { copy } from "@/content/copy";
 
 export const metadata: Metadata = {
   title: "Contact — Alpha Motion",
@@ -11,12 +12,9 @@ export default function ContactPage() {
     <section className="flex w-full flex-col items-center gap-16 px-6 py-20 sm:px-12">
       <Reveal className="flex max-w-[837px] flex-col items-center gap-[30px] text-center">
         <h1 className="text-[32px] font-bold leading-[1.3] text-white sm:text-[length:var(--text-h1)]">
-          Your Story Deserves the Spotlight
+          {copy.contact.heading}
         </h1>
-        <p className="text-[length:var(--text-body2)] text-[#797b85]">
-          We believe every collaboration starts with a spark. Whether you need a full-scale production or creative
-          editing support, our team is ready to roll.
-        </p>
+        <p className="text-[length:var(--text-body2)] text-[#797b85]">{copy.contact.body}</p>
       </Reveal>
 
       <Reveal

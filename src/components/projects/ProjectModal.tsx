@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect } from "react";
+import { copy } from "@/content/copy";
 import type { Project } from "@/content/types";
 
 export function ProjectModal({
@@ -64,7 +65,7 @@ export function ProjectModal({
                   href="/contact"
                   className="rounded-[10px] bg-white/10 px-4 py-2 text-[length:var(--text-button3)] font-medium text-white backdrop-blur-[2px]"
                 >
-                  Get in Touch
+                  {copy.projectModal.getInTouch}
                 </a>
                 <button
                   type="button"
@@ -82,7 +83,7 @@ export function ProjectModal({
                 <h2 className="text-[length:var(--text-h5)] font-bold text-white">{project.title}</h2>
                 <p className="text-[length:var(--text-body3)] text-white/60">{project.description}</p>
                 <a href={project.link} className="text-[length:var(--text-button4)] font-medium text-white underline">
-                  View full case study
+                  {copy.projectModal.viewCaseStudy}
                 </a>
               </div>
               <div className="mt-auto flex items-center justify-between">

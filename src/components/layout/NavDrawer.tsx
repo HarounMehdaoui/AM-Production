@@ -6,7 +6,9 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect } from "react";
 import { siteInfo } from "@/content/site";
 import navData from "@/content/nav.json";
+import { copy } from "@/content/copy";
 import { drawerSlide } from "@/lib/motion";
+import { isActiveNavHref } from "@/lib/nav";
 
 export function NavDrawer({
   open,
@@ -57,7 +59,7 @@ export function NavDrawer({
             <div className="flex h-14 items-center justify-between border-b border-[var(--color-omega-10)] px-6">
               <span className="flex items-center gap-3 text-[length:var(--text-caption1)] text-[var(--color-omega-60)]">
                 <span className="size-2 bg-[var(--color-accent)]" aria-hidden />
-                MENU
+                {copy.navDrawer.menuLabel}
               </span>
               <button
                 type="button"
@@ -72,7 +74,7 @@ export function NavDrawer({
             <nav aria-label="Mobile" className="flex flex-col gap-8 overflow-y-auto px-6 py-10">
               <ul className="flex flex-col">
                 {navData.primary.map((item) => {
-                  const active = activePath === item.href;
+                  const active = isActiveNavHref(activePath, item.href);
                   return (
                     <li key={item.href} className="flex items-center gap-3 border-b border-[var(--color-omega-10)] py-5">
                       <Link
@@ -89,14 +91,14 @@ export function NavDrawer({
               </ul>
 
               <div className="flex flex-col gap-2.5">
-                <span className="text-[length:var(--text-caption1)] text-[var(--color-omega-60)]">(EMAIL)</span>
+                <span className="text-[length:var(--text-caption1)] text-[var(--color-omega-60)]">{copy.navDrawer.emailLabel}</span>
                 <a href={`mailto:${siteInfo.email}`} className="text-[length:var(--text-body2)] text-[var(--color-link)]">
                   {siteInfo.email}
                 </a>
               </div>
 
               <div className="flex flex-col gap-4">
-                <span className="text-[length:var(--text-caption1)] text-[var(--color-omega-60)]">(SOCIALS)</span>
+                <span className="text-[length:var(--text-caption1)] text-[var(--color-omega-60)]">{copy.navDrawer.socialsLabel}</span>
                 <div className="grid grid-cols-2 gap-4">
                   {siteInfo.socials.map((social) => (
                     <a

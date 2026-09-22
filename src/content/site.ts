@@ -3,6 +3,8 @@ export const siteInfo = {
   legalName: "Alpha motion Media",
   logo: "/assets/logo/logo.svg",
   email: "hello@alphamotion.com",
+  // Digits only, E.164 without the leading "+" (wa.me's required format).
+  whatsappNumber: "21694060596",
   tagline: "Made with 💜 and passion",
   copyright: "© 2025 Alpha motion Media",
   ctaPrimary: "Let's Talk",

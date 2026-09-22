@@ -192,17 +192,34 @@ test.describe("interaction: contact form", () => {
     test.skip(testInfo.project.name !== "desktop-1366", "single functional pass is enough");
   });
 
-  test("submitting with all required fields shows a success state", async ({ page }) => {
+  test("submitting with all required fields redirects to WhatsApp with the message prefilled", async ({ page }) => {
     await page.goto("/contact");
     await settle(page);
+
+    // The real submit action navigates the tab to wa.me -- intercept that
+    // navigation so the test stays deterministic/offline instead of hitting
+    // WhatsApp's live servers, then assert against the constructed URL.
+    await page.route("https://wa.me/**", (route) =>
+      route.fulfill({ status: 200, contentType: "text/plain", body: "ok" })
+    );
 
     await page.getByLabel("First name*").fill("Jane");
     await page.getByLabel("Last Name*").fill("Doe");
     await page.getByLabel("How can we reach you?*").fill("jane@example.com");
     await page.getByLabel("Message*").fill("We'd like to book a shoot.");
-    await page.getByRole("button", { name: "Submit Now" }).click();
 
-    await expect(page.getByRole("status")).toContainText("Message sent");
+    await Promise.all([
+      page.waitForURL("https://wa.me/**"),
+      page.getByRole("button", { name: "Submit Now" }).click(),
+    ]);
+
+    const url = new URL(page.url());
+    expect(url.hostname).toBe("wa.me");
+    expect(url.pathname).toMatch(/^\/\d+$/);
+    const text = decodeURIComponent(url.searchParams.get("text") ?? "");
+    expect(text).toContain("New inquiry from Jane Doe");
+    expect(text).toContain("Email: jane@example.com");
+    expect(text).toContain("We'd like to book a shoot.");
   });
 
   test("required fields block submission when empty", async ({ page }) => {

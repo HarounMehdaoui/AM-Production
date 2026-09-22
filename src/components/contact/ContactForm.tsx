@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { siteInfo } from "@/content/site";
 
 const fieldCls =
   "w-full rounded-lg bg-[rgba(51,51,51,0.2)] p-3 text-[length:var(--text-body3)] text-white placeholder:text-[#707070] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--color-accent)]";
@@ -11,7 +12,18 @@ export function ContactForm() {
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    const data = new FormData(e.currentTarget);
+    const firstName = String(data.get("firstName") ?? "").trim();
+    const lastName = String(data.get("lastName") ?? "").trim();
+    const email = String(data.get("email") ?? "").trim();
+    const message = String(data.get("message") ?? "").trim();
+
+    const text = `New inquiry from ${firstName} ${lastName}\nEmail: ${email}\n\n${message}`;
+    const url = `https://wa.me/${siteInfo.whatsappNumber}?text=${encodeURIComponent(text)}`;
+
     setSubmitted(true);
+    window.location.href = url;
   }
 
   if (submitted) {
@@ -20,9 +32,9 @@ export function ContactForm() {
         role="status"
         className="flex w-full flex-col items-center gap-2 rounded-[21px] border border-white/10 bg-black p-10 text-center"
       >
-        <p className="text-[length:var(--text-h5)] font-bold text-white">Message sent</p>
+        <p className="text-[length:var(--text-h5)] font-bold text-white">Opening WhatsApp</p>
         <p className="text-[length:var(--text-body3)] text-white/60">
-          Thanks for reaching out — we&rsquo;ll get back to you shortly.
+          We&rsquo;ve prefilled your message — just hit send inside WhatsApp to reach us.
         </p>
       </div>
     );

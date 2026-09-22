@@ -2,7 +2,8 @@ import Image from "next/image";
 import { Tag } from "@/components/ui/Tag";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
-import clients from "@/content/clients.json";
+import { clients } from "@/content";
+import { copy } from "@/content/copy";
 
 export function HeroAbout() {
   const loopClients = [...clients, ...clients, ...clients];
@@ -13,12 +14,12 @@ export function HeroAbout() {
       className="flex w-full scroll-mt-24 flex-col items-center gap-16 px-6 py-20 sm:px-12 lg:px-[183px] lg:pt-[40px]"
     >
       <Reveal className="flex w-full max-w-[999px] flex-col items-center gap-6">
-        <Tag>About Us</Tag>
+        <Tag>{copy.heroAbout.tag}</Tag>
         <h1 className="px-0 py-6 text-center text-[36px] font-bold leading-[1.3] text-white sm:text-[44px] lg:px-[90px] lg:text-[length:var(--text-h1)]">
-          We turn ideas into cinematic experiences through the power of film and photography.
+          {copy.heroAbout.heading}
         </h1>
         <Button href="/contact" variant="primary">
-          Book an Appointment
+          {copy.heroAbout.cta}
         </Button>
       </Reveal>
 

@@ -1,12 +1,11 @@
 import Image from "next/image";
 import { Tag } from "@/components/ui/Tag";
 import { Reveal, RevealItem } from "@/components/ui/Reveal";
-import services from "@/content/services.json";
-import type { Service } from "@/content/types";
+import { services } from "@/content";
+import { copy } from "@/content/copy";
 
-const typed = services as Service[];
-const wide = typed.filter((s) => s.layout === "wide");
-const tall = typed.filter((s) => s.layout === "tall");
+const wide = services.filter((s) => s.layout === "wide");
+const tall = services.filter((s) => s.layout === "tall");
 
 function TagPill({ children }: { children: string }) {
   return (
@@ -29,11 +28,11 @@ export function ServicesSection() {
       <Image src="/assets/support/section-glow-bg.png" alt="" fill className="pointer-events-none absolute inset-0 -z-10 object-cover" />
 
       <Reveal className="flex flex-col items-center gap-[30px] text-center">
-        <Tag>Services</Tag>
+        <Tag>{copy.services.tag}</Tag>
         <h2 className="text-[32px] font-bold leading-[1.3] text-white sm:text-[length:var(--text-h1)]">
-          How can we assist you today?
+          {copy.services.heading}
         </h2>
-        <p className="text-[length:var(--text-h5)] text-[#797b85]">Read how our users have achieved success</p>
+        <p className="text-[length:var(--text-h5)] text-[#797b85]">{copy.services.subheading}</p>
       </Reveal>
 
       <Reveal stagger className="grid w-full max-w-[1200px] grid-cols-1 gap-5 lg:grid-cols-2">

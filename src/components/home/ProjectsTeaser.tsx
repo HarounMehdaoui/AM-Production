@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 import { ProjectsGrid } from "@/components/projects/ProjectsGrid";
 import { CircleTicker } from "@/components/home/CircleTicker";
-import projects from "@/content/projects.json";
+import { projects } from "@/content";
+import { copy } from "@/content/copy";
 
 export function ProjectsTeaser() {
   return (
@@ -30,18 +31,16 @@ export function ProjectsTeaser() {
       */}
       <CircleTicker>
         <Reveal className="flex max-w-[574px] flex-col items-center gap-[10px] px-4 text-center">
-          <Tag>Projects</Tag>
+          <Tag>{copy.projectsTeaser.tag}</Tag>
           <div className="flex flex-col items-center gap-10 pt-6">
             <h2 className="text-[32px] font-bold leading-[1.3] text-white sm:text-[length:var(--text-h1)]">
-              A glimpse through our
+              {copy.projectsTeaser.heading[0]}
               <br />
-              Perspective
+              {copy.projectsTeaser.heading[1]}
             </h2>
-            <p className="text-[length:var(--text-h5)] tracking-[-0.5px] text-white/50">
-              We transform your vision into reality with creative editorial and portrait photography.
-            </p>
+            <p className="text-[length:var(--text-h5)] tracking-[-0.5px] text-white/50">{copy.projectsTeaser.body}</p>
             <Button href="/projects" variant="primary">
-              Get in Touch
+              {copy.projectsTeaser.cta}
             </Button>
           </div>
         </Reveal>

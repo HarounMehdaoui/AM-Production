@@ -1,7 +1,8 @@
 import Image from "next/image";
 import { Tag } from "@/components/ui/Tag";
 import { Reveal } from "@/components/ui/Reveal";
-import testimonials from "@/content/testimonials.json";
+import { testimonials } from "@/content";
+import { copy } from "@/content/copy";
 import type { Testimonial } from "@/content/types";
 
 function TestimonialCard({ item }: { item: Testimonial }) {
@@ -21,17 +22,16 @@ function TestimonialCard({ item }: { item: Testimonial }) {
 }
 
 export function TestimonialsSection() {
-  const items = testimonials as Testimonial[];
-  const loop = [...items, ...items];
+  const loop = [...testimonials, ...testimonials];
 
   return (
     <section className="flex w-full flex-col items-center gap-[72px] border-t border-black bg-[radial-gradient(circle_at_50%_0%,rgba(15,9,18,1)_0%,rgba(8,5,9,1)_50%,rgba(0,0,0,1)_100%)] py-16">
       <Reveal className="flex flex-col items-center gap-4 px-6 text-center">
-        <Tag>Testimonials</Tag>
+        <Tag>{copy.testimonials.tag}</Tag>
         <h2 className="text-[32px] font-bold leading-[1.3] text-white sm:text-[length:var(--text-h1)]">
-          Hear from Our User
+          {copy.testimonials.heading}
         </h2>
-        <p className="text-[length:var(--text-h5)] text-[#797b85]">Read how our users have achieved success</p>
+        <p className="text-[length:var(--text-h5)] text-[#797b85]">{copy.testimonials.subheading}</p>
       </Reveal>
 
       <div

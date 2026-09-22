@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { cardFocus } from "@/lib/motion";
+import { copy } from "@/content/copy";
 import type { Project } from "@/content/types";
 
 /**
@@ -92,7 +93,7 @@ export function ProjectCard({
         </span>
 
         <span className="absolute inset-x-0 bottom-0 flex translate-y-full items-center justify-center bg-black/40 py-3 text-[length:var(--text-button2)] font-medium text-white opacity-0 backdrop-blur-[2px] transition-all duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
-          View Now
+          {copy.projectCard.viewNow}
         </span>
       </span>
 

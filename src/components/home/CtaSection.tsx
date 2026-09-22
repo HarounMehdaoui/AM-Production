@@ -1,6 +1,7 @@
 import { Tag } from "@/components/ui/Tag";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
+import { copy } from "@/content/copy";
 
 export function CtaSection() {
   return (
@@ -26,17 +27,14 @@ export function CtaSection() {
         />
         <div className="relative flex flex-col items-center gap-10 px-6 py-16 text-center sm:px-12 lg:px-[50px]">
           <div className="flex max-w-[680px] flex-col items-center gap-4">
-            <Tag>Become a Part of Us</Tag>
+            <Tag>{copy.cta.tag}</Tag>
             <h2 className="text-[32px] font-bold leading-[1.3] text-white sm:text-[length:var(--text-h1)]">
-              Ready to create something unforgettable?
+              {copy.cta.heading}
             </h2>
           </div>
-          <p className="max-w-[680px] text-[length:var(--text-body3)] tracking-[-0.2px] text-white/60">
-            From concept to final cut, we turn imagination into emotion. Tell us your vision — and let&rsquo;s make it
-            real.
-          </p>
+          <p className="max-w-[680px] text-[length:var(--text-body3)] tracking-[-0.2px] text-white/60">{copy.cta.body}</p>
           <Button href="/contact" variant="primary">
-            Book an Appointment
+            {copy.cta.cta}
           </Button>
         </div>
       </Reveal>

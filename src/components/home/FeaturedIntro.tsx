@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { copy } from "@/content/copy";
 
 /**
  * Figma "Hero Banner" (17:11436, Components page) -- confirmed via
@@ -143,7 +144,7 @@ export function FeaturedIntro() {
               className="motion-reduce:animate-none size-3.5 animate-blink-dot rounded-full bg-white/50"
               aria-hidden
             />
-            <span className="text-[length:var(--text-body3)] text-white/80">Creative Agency</span>
+            <span className="text-[length:var(--text-body3)] text-white/80">{copy.featuredIntro.liveLabel}</span>
           </div>
           {/*
             <p>, not <h1> -- HeroAbout already renders the page's real H1
@@ -153,7 +154,7 @@ export function FeaturedIntro() {
             level for a decorative tagline inside a card anyway.
           */}
           <p className="hidden text-[56px] font-bold leading-[56px] tracking-[-2px] text-white lg:block lg:max-w-[540px]">
-            Blending art, motion, and emotion
+            {copy.featuredIntro.headline}
           </p>
         </div>
 
@@ -170,8 +171,8 @@ export function FeaturedIntro() {
         */}
         {/* "Headline" (17:11796): left 74.72%, top 58.43%, right-aligned, blurred. */}
         <div className="absolute left-[74.72%] top-[58.43%] hidden w-[21.34%] min-w-[140px] flex-col text-right text-[56px] font-bold leading-[56px] tracking-[-2px] blur-[2px] lg:flex">
-          <span className="text-white/60">Beyond Visuals.</span>
-          <span className="text-white">Built with Vision.</span>
+          <span className="text-white/60">{copy.featuredIntro.headlineSecondary.muted}</span>
+          <span className="text-white">{copy.featuredIntro.headlineSecondary.bold}</span>
         </div>
 
         <Image

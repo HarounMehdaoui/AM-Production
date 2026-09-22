@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ProjectsGrid } from "@/components/projects/ProjectsGrid";
 import { CtaSection } from "@/components/home/CtaSection";
-import projects from "@/content/projects.json";
+import { projects } from "@/content";
 
 export const metadata: Metadata = {
   title: "Projects — Alpha Motion",
