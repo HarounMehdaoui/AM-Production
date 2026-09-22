@@ -1,1 +1,1 @@
-export type { Project, Service, Testimonial, Client } from "./schema";
+export type { Project, Service, Testimonial, Client, CircleTickerImage, HeroMedia } from "./schema";

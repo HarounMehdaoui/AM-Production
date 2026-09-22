@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Tag } from "@/components/ui/Tag";
 import { Reveal } from "@/components/ui/Reveal";
-import { testimonials } from "@/content";
+import { getTestimonials } from "@/content";
 import { copy } from "@/content/copy";
 import type { Testimonial } from "@/content/types";
 
@@ -21,7 +21,8 @@ function TestimonialCard({ item }: { item: Testimonial }) {
   );
 }
 
-export function TestimonialsSection() {
+export async function TestimonialsSection() {
+  const testimonials = await getTestimonials();
   const loop = [...testimonials, ...testimonials];
 
   return (
@@ -41,7 +42,7 @@ export function TestimonialsSection() {
       >
         <div className="animate-marquee-slow flex w-max items-center gap-[19px]">
           {loop.map((item, i) => (
-            <TestimonialCard key={`${item.name}-${i}`} item={item} />
+            <TestimonialCard key={`${item.id}-${i}`} item={item} />
           ))}
         </div>
       </div>

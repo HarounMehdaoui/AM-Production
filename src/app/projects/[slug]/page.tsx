@@ -2,16 +2,16 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CtaSection } from "@/components/home/CtaSection";
-import { projects } from "@/content";
+import { getProjects } from "@/content";
 
 /**
- * Fixes a real dead link: ProjectModal's "View full case study" and every
- * projects.json `link` field already pointed at `/projects/<id>` with no
- * matching route -- every click 404'd. This is a minimal detail page using
- * the fields the content already has (title/description/category), not a
- * full case-study layout.
+ * Fixes a real dead link: ProjectModal's "View full case study" pointed at
+ * `/projects/<id>` with no matching route -- every click 404'd. This is a
+ * minimal detail page using the fields the content already has
+ * (title/description/category), not a full case-study layout.
  */
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const projects = await getProjects();
   return projects.map((project) => ({ slug: project.id }));
 }
 
@@ -21,6 +21,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
+  const projects = await getProjects();
   const project = projects.find((p) => p.id === slug);
   return { title: project ? `${project.title} — Alpha Motion` : "Project — Alpha Motion" };
 }
@@ -31,6 +32,7 @@ export default async function ProjectDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const projects = await getProjects();
   const project = projects.find((p) => p.id === slug);
   if (!project) notFound();
 
@@ -50,6 +52,14 @@ export default async function ProjectDetailPage({
             </h1>
           </div>
           <p className="text-[length:var(--text-body2)] text-white/70">{project.description}</p>
+          {project.videoEmbed && (
+            // CMS-authored HTML only -- see ProjectModal.tsx for why this is safe here
+            // but must never accept arbitrary/user-submitted input.
+            <div
+              className="aspect-video w-full overflow-hidden rounded-2xl [&>iframe]:size-full"
+              dangerouslySetInnerHTML={{ __html: project.videoEmbed }}
+            />
+          )}
         </div>
       </section>
       <CtaSection />

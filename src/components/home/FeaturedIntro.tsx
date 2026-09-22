@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { copy } from "@/content/copy";
+import { getHeroMedia } from "@/content";
 
 /**
  * Figma "Hero Banner" (17:11436, Components page) -- confirmed via
@@ -60,7 +61,9 @@ import { copy } from "@/content/copy";
  * at sm/lg and hidden below sm rather than guessing a mobile layout, since
  * at mobile card widths (~300px) 56px text would overflow regardless.
  */
-export function FeaturedIntro() {
+export async function FeaturedIntro() {
+  const heroMedia = await getHeroMedia();
+
   return (
     <section className="flex w-full justify-center px-6 pt-10 sm:px-12 lg:px-12">
       <div className="relative flex aspect-[1270/623] w-full max-w-[1270px] items-end justify-between overflow-hidden rounded-[24px] border border-white/10 bg-black p-4">
@@ -89,7 +92,7 @@ export function FeaturedIntro() {
           <div className="relative h-[62.12%] w-[40.55%] bg-[#0d0d0d]">
             <video
               className="size-full scale-[2] object-cover grayscale"
-              src="/assets/banner_video.mp4"
+              src={heroMedia.videoUrl}
               autoPlay
               loop
               muted

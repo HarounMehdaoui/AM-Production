@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
+import { getCircleTickerImages } from "@/content";
 
 /**
  * Figma's "Circle Wrap -> Circle" component (14:16765) is a ~1564px-diameter
@@ -54,19 +55,25 @@ import type { ReactNode } from "react";
  * (560 vs ~475 content) so it never showed this. Heights below are now
  * sized to the taller of (ring-radius+card-half) and (overlay content),
  * not just the ring geometry.
+ *
+ * The 12-photo count itself is not hardcoded here -- `images` comes from
+ * the CMS-managed circle-ticker gallery (unbounded), and whatever count it
+ * returns gets doubled and spread evenly around the full circle the same
+ * way the original 12 did. Fewer or more photos both still produce a
+ * rotationally-symmetric ring; only the spacing between cards changes.
  */
-const UNIQUE_CARD_COUNT = 12;
-const TOTAL_POSITIONS = UNIQUE_CARD_COUNT * 2;
-const positions = Array.from({ length: TOTAL_POSITIONS }, (_, i) => ({
-  src: `/assets/circle-ticker/card-${(i % UNIQUE_CARD_COUNT) + 1}.png`,
-  angle: i * (360 / TOTAL_POSITIONS),
-  key: `pos-${i}`,
-}));
-
 const FADE_MASK =
   "linear-gradient(to bottom, black 0%, black 62%, transparent 92%)";
 
-export function CircleTicker({ children }: { children?: ReactNode }) {
+export async function CircleTicker({ children }: { children?: ReactNode }) {
+  const images = await getCircleTickerImages();
+  const totalPositions = images.length * 2;
+  const positions = Array.from({ length: totalPositions }, (_, i) => ({
+    src: images[i % images.length].imageUrl,
+    angle: i * (360 / totalPositions),
+    key: `pos-${i}`,
+  }));
+
   return (
     <div className="relative w-full">
       <div

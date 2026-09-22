@@ -4,10 +4,12 @@ import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 import { ProjectsGrid } from "@/components/projects/ProjectsGrid";
 import { CircleTicker } from "@/components/home/CircleTicker";
-import { projects } from "@/content";
+import { getProjects } from "@/content";
 import { copy } from "@/content/copy";
 
-export function ProjectsTeaser() {
+export async function ProjectsTeaser() {
+  const projects = await getProjects();
+
   return (
     <section
       id="projects"

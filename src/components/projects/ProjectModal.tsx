@@ -56,10 +56,23 @@ export function ProjectModal({
             transition={{ duration: prefersReduced ? 0 : 0.3 }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="relative flex h-[280px] w-full items-center justify-center bg-gradient-to-br from-[var(--color-secondary)]/30 via-black to-[var(--color-primary)]/20 sm:h-[507px] sm:flex-1">
-              <span className="rounded-full bg-black/40 px-3 py-1 text-[length:var(--text-caption1)] uppercase tracking-widest text-white/60">
-                {project.category}
-              </span>
+            <div className="relative flex h-[280px] w-full items-center justify-center overflow-hidden bg-gradient-to-br from-[var(--color-secondary)]/30 via-black to-[var(--color-primary)]/20 sm:h-[507px] sm:flex-1">
+              {project.videoEmbed ? (
+                // Raw HTML embed (a Vimeo <iframe>, typically) from the CMS,
+                // rendered as-is. This field must only ever be editable by an
+                // authenticated CMS admin -- dangerouslySetInnerHTML on
+                // arbitrary/user-submitted input would be an XSS hole; on a
+                // trusted CMS-authored field it's the standard way to render
+                // a third-party embed.
+                <div
+                  className="absolute inset-0 [&>iframe]:size-full"
+                  dangerouslySetInnerHTML={{ __html: project.videoEmbed }}
+                />
+              ) : (
+                <span className="rounded-full bg-black/40 px-3 py-1 text-[length:var(--text-caption1)] uppercase tracking-widest text-white/60">
+                  {project.category}
+                </span>
+              )}
               <div className="absolute right-4 top-4 flex gap-3">
                 <a
                   href="/contact"
@@ -82,7 +95,10 @@ export function ProjectModal({
               <div className="flex flex-col gap-2">
                 <h2 className="text-[length:var(--text-h5)] font-bold text-white">{project.title}</h2>
                 <p className="text-[length:var(--text-body3)] text-white/60">{project.description}</p>
-                <a href={project.link} className="text-[length:var(--text-button4)] font-medium text-white underline">
+                <a
+                  href={`/projects/${project.id}`}
+                  className="text-[length:var(--text-button4)] font-medium text-white underline"
+                >
                   {copy.projectModal.viewCaseStudy}
                 </a>
               </div>

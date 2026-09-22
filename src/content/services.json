@@ -6,7 +6,9 @@
     "tags": ["Studio or outdoor", "Natural editing", "High-res files."],
     "image": "/assets/support/portrait-camera-top.png",
     "icon": "/assets/support/icon-portrait.svg",
-    "layout": "wide"
+    "layout": "wide",
+    "published": true,
+    "order": 0
   },
   {
     "id": "shot-with-top-gear",
@@ -15,7 +17,9 @@
     "tags": ["Lighting", "Direction", "Editing"],
     "image": "/assets/support/camera-macro.png",
     "icon": "/assets/support/icon-topgear.svg",
-    "layout": "wide"
+    "layout": "wide",
+    "published": true,
+    "order": 1
   },
   {
     "id": "branding-lifestyle-photography",
@@ -24,6 +28,8 @@
     "tags": ["On-location", "Tailored brand styling", "Fast delivery."],
     "image": "/assets/support/studio-wide.png",
     "icon": "/assets/support/icon-branding.svg",
-    "layout": "tall"
+    "layout": "tall",
+    "published": true,
+    "order": 2
   }
 ]

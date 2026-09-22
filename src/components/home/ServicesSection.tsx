@@ -1,11 +1,8 @@
 import Image from "next/image";
 import { Tag } from "@/components/ui/Tag";
 import { Reveal, RevealItem } from "@/components/ui/Reveal";
-import { services } from "@/content";
+import { getServices } from "@/content";
 import { copy } from "@/content/copy";
-
-const wide = services.filter((s) => s.layout === "wide");
-const tall = services.filter((s) => s.layout === "tall");
 
 function TagPill({ children }: { children: string }) {
   return (
@@ -19,7 +16,11 @@ function ServiceIcon({ src }: { src: string }) {
   return <Image src={src} alt="" width={24} height={24} className="shrink-0" />;
 }
 
-export function ServicesSection() {
+export async function ServicesSection() {
+  const services = await getServices();
+  const wide = services.filter((s) => s.layout === "wide");
+  const tall = services.filter((s) => s.layout === "tall");
+
   return (
     <section
       id="studios"

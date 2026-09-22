@@ -2,10 +2,11 @@ import Image from "next/image";
 import { Tag } from "@/components/ui/Tag";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
-import { clients } from "@/content";
+import { getClients } from "@/content";
 import { copy } from "@/content/copy";
 
-export function HeroAbout() {
+export async function HeroAbout() {
+  const clients = await getClients();
   const loopClients = [...clients, ...clients, ...clients];
 
   return (
@@ -35,7 +36,7 @@ export function HeroAbout() {
           <div className="animate-marquee flex w-max items-center gap-16 py-5">
             {loopClients.map((client, i) => (
               <Image
-                key={`${client.name}-${i}`}
+                key={`${client.id}-${i}`}
                 src={client.image}
                 alt={client.name}
                 width={120}

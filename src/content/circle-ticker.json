@@ -1,0 +1,14 @@
+[
+  { "id": "card-1", "imageUrl": "/assets/circle-ticker/card-1.png", "order": 0 },
+  { "id": "card-2", "imageUrl": "/assets/circle-ticker/card-2.png", "order": 1 },
+  { "id": "card-3", "imageUrl": "/assets/circle-ticker/card-3.png", "order": 2 },
+  { "id": "card-4", "imageUrl": "/assets/circle-ticker/card-4.png", "order": 3 },
+  { "id": "card-5", "imageUrl": "/assets/circle-ticker/card-5.png", "order": 4 },
+  { "id": "card-6", "imageUrl": "/assets/circle-ticker/card-6.png", "order": 5 },
+  { "id": "card-7", "imageUrl": "/assets/circle-ticker/card-7.png", "order": 6 },
+  { "id": "card-8", "imageUrl": "/assets/circle-ticker/card-8.png", "order": 7 },
+  { "id": "card-9", "imageUrl": "/assets/circle-ticker/card-9.png", "order": 8 },
+  { "id": "card-10", "imageUrl": "/assets/circle-ticker/card-10.png", "order": 9 },
+  { "id": "card-11", "imageUrl": "/assets/circle-ticker/card-11.png", "order": 10 },
+  { "id": "card-12", "imageUrl": "/assets/circle-ticker/card-12.png", "order": 11 }
+]

@@ -1,6 +1,6 @@
 [
-  { "name": "Logo", "image": "/assets/clients/logo-1.png" },
-  { "name": "Logo Ipsum", "image": "/assets/clients/logo-2.png" },
-  { "name": "Ipsum", "image": "/assets/clients/logo-3.png" },
-  { "name": "Wave", "image": "/assets/clients/logo-wave.png" }
+  { "id": "logo", "name": "Logo", "image": "/assets/clients/logo-1.png", "order": 0 },
+  { "id": "logo-ipsum", "name": "Logo Ipsum", "image": "/assets/clients/logo-2.png", "order": 1 },
+  { "id": "ipsum", "name": "Ipsum", "image": "/assets/clients/logo-3.png", "order": 2 },
+  { "id": "wave", "name": "Wave", "image": "/assets/clients/logo-wave.png", "order": 3 }
 ]

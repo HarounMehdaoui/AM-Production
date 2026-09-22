@@ -1,44 +1,65 @@
 [
   {
+    "id": "amelia-rhodes",
     "quote": "Each image told a story and aligned perfectly with our vision.",
     "name": "Amelia Rhodes",
     "company": "Nova Skincare",
-    "avatar": "/assets/testimonials/avatar-1.png"
+    "avatar": "/assets/testimonials/avatar-1.png",
+    "published": true,
+    "order": 0
   },
   {
+    "id": "marcus-webb",
     "quote": "They understood our brand instantly — the final cut felt like us, only sharper.",
     "name": "Marcus Webb",
     "company": "Orbit Sneakers",
-    "avatar": "/assets/testimonials/avatar-1.png"
+    "avatar": "/assets/testimonials/avatar-1.png",
+    "published": true,
+    "order": 1
   },
   {
+    "id": "priya-nandan",
     "quote": "Fast turnaround, zero compromise on quality. Our go-to team for every launch since.",
     "name": "Priya Nandan",
     "company": "Lumen Jewelry",
-    "avatar": "/assets/testimonials/avatar-1.png"
+    "avatar": "/assets/testimonials/avatar-1.png",
+    "published": true,
+    "order": 2
   },
   {
+    "id": "tobias-reyes",
     "quote": "The documentary captured nuance we didn't know how to ask for. Genuinely moved by it.",
     "name": "Tobias Reyes",
     "company": "Cinder Coffee",
-    "avatar": "/assets/testimonials/avatar-1.png"
+    "avatar": "/assets/testimonials/avatar-1.png",
+    "published": true,
+    "order": 3
   },
   {
+    "id": "hana-ito",
     "quote": "Professional on set, even more impressive in the edit. Worth every appointment.",
     "name": "Hana Ito",
     "company": "Meridian Hotels",
-    "avatar": "/assets/testimonials/avatar-1.png"
+    "avatar": "/assets/testimonials/avatar-1.png",
+    "published": true,
+    "order": 4
   },
   {
+    "id": "diego-fuentes",
     "quote": "Our social engagement doubled the month after their series went live.",
     "name": "Diego Fuentes",
     "company": "Atlas Fitness",
-    "avatar": "/assets/testimonials/avatar-1.png"
+    "avatar": "/assets/testimonials/avatar-1.png",
+    "published": true,
+    "order": 5
   },
   {
+    "id": "freya-lindqvist",
     "quote": "They made a two-day summit feel like a feature film. Booking them again already.",
     "name": "Freya Lindqvist",
     "company": "Harbor Collective",
-    "avatar": "/assets/testimonials/avatar-1.png"
+    "avatar": "/assets/testimonials/avatar-1.png",
+    "published": true,
+    "order": 6
   }
 ]
