@@ -12,6 +12,15 @@ const CMS_API_URL = process.env.CMS_API_URL;
 
 export const isCmsConfigured = Boolean(CMS_API_URL);
 
+// Next.js only reads env vars at process start, not live -- a server left
+// running from before CMS_API_URL was set/changed silently keeps serving
+// local static content forever, which reads exactly like "CMS edits never
+// show up" (a real incident: see the QA bug report this comment responds
+// to). One unmistakable line per process start removes the guesswork.
+console.log(
+  isCmsConfigured ? `[cms] live mode: CMS_API_URL=${CMS_API_URL}` : "[cms] static mode: CMS_API_URL is not set"
+);
+
 /**
  * Fetches one endpoint from the CMS's public read API and validates the
  * response against the same zod schema the local JSON fallback is parsed
