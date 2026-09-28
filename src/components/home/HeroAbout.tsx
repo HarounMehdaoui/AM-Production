@@ -35,14 +35,22 @@ export async function HeroAbout() {
         >
           <div className="animate-marquee flex w-max items-center gap-16 py-5">
             {loopClients.map((client, i) => (
-              <Image
-                key={`${client.id}-${i}`}
-                src={client.image}
-                alt={client.name}
-                width={120}
-                height={40}
-                className="h-10 w-auto object-contain opacity-50 grayscale"
-              />
+              // fill + a sized box, not width/height props + a w-auto override:
+              // logos have varying source aspect ratios, and pinning height
+              // via a prop while letting CSS auto-size width triggers
+              // next/image's "width or height modified, but not the other"
+              // warning the moment a logo's real ratio isn't exactly 3:1.
+              // fill sidesteps that mismatch entirely -- no width/height
+              // attribute for the browser to compare against.
+              <div key={`${client.id}-${i}`} className="relative h-10 w-[120px] shrink-0">
+                <Image
+                  src={client.image}
+                  alt={client.name}
+                  fill
+                  sizes="120px"
+                  className="object-contain opacity-50 grayscale"
+                />
+              </div>
             ))}
           </div>
         </div>

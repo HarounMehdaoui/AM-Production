@@ -142,4 +142,29 @@ test.describe("CMS integration: ISR revalidation", () => {
       if (original) await cms.put("/api/admin/hero-media", { data: { videoUrl: original } });
     }
   });
+
+  // Regression for a report claiming /projects reused the homepage teaser's
+  // capped fetch (3 items). Code inspection showed no such cap -- src/app/
+  // projects/page.tsx never passes ProjectsGrid a `limit` -- and manual
+  // testing with 10 seeded projects rendered all 10. This locks that in
+  // rather than relying on a one-time manual check.
+  test("the /projects listing renders every published project, not a capped preview", async ({ page }) => {
+    const ids = Array.from({ length: 7 }, (_, i) => `pw-listing-${Date.now()}-${i}`);
+
+    try {
+      for (const id of ids) {
+        await createTestProject(id);
+      }
+
+      await pollUntil("the /projects listing to include every newly created project", async () => {
+        await page.goto("/projects");
+        const titles = await page.getByTestId("project-card-title").allTextContents();
+        return ids.every((id) => titles.some((title) => title.includes(id)));
+      });
+    } finally {
+      for (const id of ids) {
+        await cms.delete(`/api/admin/projects/${id}`);
+      }
+    }
+  });
 });
