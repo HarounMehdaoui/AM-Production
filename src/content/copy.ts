@@ -35,6 +35,16 @@ export const copy = {
     heading: "How can we assist you today?",
     subheading: "Read how our users have achieved success",
   },
+  studios: {
+    tag: "Studios",
+    heading: "What we do, built for every production",
+    body: "From first frame to final grade, our studio brings the crew, the gear, and the craft to bring your story to life.",
+  },
+  about: {
+    tag: "About Us",
+    heading: "The people behind the camera",
+    body: "A small crew of directors, shooters, and editors who've spent the last decade turning briefs into films worth watching.",
+  },
   testimonials: {
     tag: "Testimonials",
     heading: "Hear from Our User",

@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import Image from "next/image";
 import { useEffect } from "react";
 import { copy } from "@/content/copy";
 import type { Project } from "@/content/types";
@@ -68,6 +69,8 @@ export function ProjectModal({
                   className="absolute inset-0 [&>iframe]:size-full"
                   dangerouslySetInnerHTML={{ __html: project.videoEmbed }}
                 />
+              ) : project.media ? (
+                <Image src={project.media} alt="" fill className="object-cover" />
               ) : (
                 <span className="rounded-full bg-black/40 px-3 py-1 text-[length:var(--text-caption1)] uppercase tracking-widest text-white/60">
                   {project.category}

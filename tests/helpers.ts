@@ -1,10 +1,18 @@
 import type { Page } from "@playwright/test";
 
-/** Figma frame widths this file actually has, per page. */
+/**
+ * Breakpoints covered per page. Home/Contact/Projects widths match real
+ * Figma frames; Studios and About have no Figma frame of their own (built
+ * from scratch, reusing the site's existing components/layout language), so
+ * they use the same breakpoint set as Contact/Projects rather than a frame
+ * reference.
+ */
 export const BREAKPOINTS: Record<string, number[]> = {
   "/": [1366, 800, 375],
   "/contact": [1366, 1024, 768, 375],
   "/projects": [1366, 1024, 768, 375],
+  "/studios": [1366, 1024, 768, 375],
+  "/about": [1366, 1024, 768, 375],
 };
 
 export function skipUnlessBreakpointExists(path: string, width: number) {

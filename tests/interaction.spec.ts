@@ -6,21 +6,40 @@ test.describe("interaction: desktop nav", () => {
     test.skip(testInfo.project.name !== "desktop-1366", "nav bar links are desktop-only; drawer covered separately");
   });
 
-  test("primary nav: Contact/Home navigate to their routes, Projects smooth-scrolls in place", async ({ page }) => {
-    // Nav "Projects" intentionally scroll-links to the Home page's projects
-    // section (id="projects") rather than routing to /projects -- the
-    // separate "See All" button (tested below) is what routes to the
-    // dedicated /projects page. Two different, deliberately non-matching
-    // behaviours -- see the nav scroll-to-section describe block for the
-    // Projects-specific assertions.
+  test("every primary nav link routes directly to its own dedicated page", async ({ page }) => {
     await page.goto("/");
     await settle(page);
+    const nav = page.getByRole("navigation", { name: "Primary" });
 
-    await page.getByRole("navigation", { name: "Primary" }).getByRole("link", { name: "Contact" }).click();
+    await nav.getByRole("link", { name: "Projects" }).click();
+    await expect(page).toHaveURL("/projects");
+
+    await nav.getByRole("link", { name: "Studios" }).click();
+    await expect(page).toHaveURL("/studios");
+
+    await nav.getByRole("link", { name: "About" }).click();
+    await expect(page).toHaveURL("/about");
+
+    await nav.getByRole("link", { name: "Contact" }).click();
     await expect(page).toHaveURL("/contact");
 
-    await page.getByRole("navigation", { name: "Primary" }).getByRole("link", { name: "Home" }).click();
+    await nav.getByRole("link", { name: "Home" }).click();
     await expect(page).toHaveURL("/");
+  });
+
+  test("the active nav link is highlighted on every dedicated page", async ({ page }) => {
+    const nav = page.getByRole("navigation", { name: "Primary" });
+    for (const [path, label] of [
+      ["/", "Home"],
+      ["/projects", "Projects"],
+      ["/studios", "Studios"],
+      ["/about", "About"],
+      ["/contact", "Contact"],
+    ] as const) {
+      await page.goto(path);
+      await settle(page);
+      await expect(nav.getByRole("link", { name: label })).toHaveAttribute("aria-current", "page");
+    }
   });
 
   test("nav CTA opens contact", async ({ page }) => {
@@ -45,54 +64,51 @@ test.describe("interaction: desktop nav", () => {
   });
 });
 
-test.describe("interaction: nav scroll-to-section", () => {
+test.describe("interaction: routing", () => {
   test.beforeEach(({}, testInfo) => {
-    test.skip(testInfo.project.name !== "desktop-1366", "scroll targets don't vary per breakpoint");
+    test.skip(testInfo.project.name !== "desktop-1366", "routing behaviour doesn't vary per breakpoint");
   });
 
-  test("Studios and About smooth-scroll to their Home sections, not separate routes", async ({ page }) => {
+  test("every route is reachable directly (hard navigation, not just client-side)", async ({ page }) => {
+    for (const path of ["/", "/projects", "/studios", "/about", "/contact"]) {
+      const res = await page.goto(path);
+      expect(res?.status(), `${path} should respond 200`).toBe(200);
+    }
+  });
+
+  test("refreshing a dedicated page does not 404", async ({ page }) => {
+    for (const path of ["/studios", "/about", "/projects", "/contact"]) {
+      await page.goto(path);
+      const res = await page.reload();
+      expect(res?.status(), `reloading ${path} should still respond 200`).toBe(200);
+      await expect(page.getByRole("banner")).toBeVisible();
+    }
+  });
+
+  test("browser back/forward works across the primary nav", async ({ page }) => {
     await page.goto("/");
     await settle(page);
     const nav = page.getByRole("navigation", { name: "Primary" });
 
     await nav.getByRole("link", { name: "Studios" }).click();
-    await expect(page).toHaveURL("/#studios");
-    await expect(page.locator("#studios")).toBeInViewport();
-
+    await expect(page).toHaveURL("/studios");
     await nav.getByRole("link", { name: "About" }).click();
-    await expect(page).toHaveURL("/#about");
-    await expect(page.locator("#about")).toBeInViewport();
+    await expect(page).toHaveURL("/about");
+
+    await page.goBack();
+    await expect(page).toHaveURL("/studios");
+    await page.goBack();
+    await expect(page).toHaveURL("/");
+
+    await page.goForward();
+    await expect(page).toHaveURL("/studios");
   });
 
-  test("nav 'Projects' smooth-scrolls to the Home section; 'See All' still routes to /projects", async ({
-    page,
-  }) => {
-    // These are deliberately opposite behaviours on the same page -- verify
-    // together so a fix to one can't silently regress the other.
-    await page.goto("/");
-    await settle(page);
-
-    await page.getByRole("navigation", { name: "Primary" }).getByRole("link", { name: "Projects" }).click();
-    await expect(page).toHaveURL("/#projects");
-    await expect(page.locator("#projects")).toBeInViewport();
-
-    await page.getByRole("link", { name: "See All" }).click();
-    await expect(page).toHaveURL("/projects");
-  });
-
-  test("clicking Studios/About from another page navigates to Home and scrolls there", async ({ page }) => {
+  test("clicking Studios/About from another page navigates to the dedicated route", async ({ page }) => {
     await page.goto("/contact");
     await settle(page);
     await page.getByRole("navigation", { name: "Primary" }).getByRole("link", { name: "Studios" }).click();
-    await expect(page).toHaveURL("/#studios");
-    await expect(page.locator("#studios")).toBeInViewport();
-  });
-
-  test("legacy /studios and /about URLs redirect to the anchors", async ({ page }) => {
-    await page.goto("/studios");
-    await expect(page).toHaveURL("/#studios");
-    await page.goto("/about");
-    await expect(page).toHaveURL("/#about");
+    await expect(page).toHaveURL("/studios");
   });
 });
 
@@ -252,7 +268,7 @@ test.describe("interaction: footer", () => {
     }
   });
 
-  test("footer nav links match primary nav hrefs (Contact routes, Projects scroll-links)", async ({ page }) => {
+  test("footer nav links match primary nav hrefs", async ({ page }) => {
     await page.goto("/");
     await settle(page);
     await page.locator("footer").getByRole("link", { name: "Contact" }).click();
@@ -261,7 +277,6 @@ test.describe("interaction: footer", () => {
     await page.goto("/");
     await settle(page);
     await page.locator("footer").getByRole("link", { name: "Projects" }).click();
-    await expect(page).toHaveURL("/#projects");
-    await expect(page.locator("#projects")).toBeInViewport();
+    await expect(page).toHaveURL("/projects");
   });
 });

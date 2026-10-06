@@ -5,6 +5,8 @@ const PAGES: { path: string; name: string }[] = [
   { path: "/", name: "home" },
   { path: "/contact", name: "contact" },
   { path: "/projects", name: "projects" },
+  { path: "/studios", name: "studios" },
+  { path: "/about", name: "about" },
 ];
 
 for (const { path, name } of PAGES) {

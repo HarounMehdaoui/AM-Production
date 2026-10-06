@@ -1,0 +1,29 @@
+[
+  {
+    "id": "amelia-rhodes",
+    "name": "Amelia Rhodes",
+    "role": "Founder & Creative Director",
+    "bio": "Leads every production from concept to final cut, with a decade shooting brand films across three continents.",
+    "photo": null,
+    "published": true,
+    "order": 0
+  },
+  {
+    "id": "marcus-webb",
+    "name": "Marcus Webb",
+    "role": "Director of Photography",
+    "bio": "Shapes the visual language of every shoot, from available-light portraiture to large-format commercial sets.",
+    "photo": null,
+    "published": true,
+    "order": 1
+  },
+  {
+    "id": "priya-nandan",
+    "name": "Priya Nandan",
+    "role": "Head of Post-Production",
+    "bio": "Runs the edit bay — color, sound, and story — turning raw footage into the studio's signature cinematic finish.",
+    "photo": null,
+    "published": true,
+    "order": 2
+  }
+]

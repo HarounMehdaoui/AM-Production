@@ -45,6 +45,14 @@ export function ProjectCard({
       />
 
       <span className="relative flex h-[188px] w-full items-center justify-center overflow-hidden rounded-xl border border-[var(--color-omega-10)] bg-gradient-to-br from-[var(--color-secondary)]/30 via-[var(--color-alpha)] to-[var(--color-primary)]/20">
+        {/* project.media is CMS-managed and was never rendered here -- the
+            brand-toned gradient above stayed in place even once real cover
+            photos existed, since nothing read the field. Shown when present,
+            gradient placeholder (still) covers CMS/local content with none set. */}
+        {project.media && (
+          <Image src={project.media} alt="" fill className="object-cover" />
+        )}
+
         {/* Viewfinder corner brackets (real exported assets, both Default
             and Focus states carry them per get_design_context on 14:18512/14:18514). */}
         <Image

@@ -1,11 +1,39 @@
-import { redirect } from "next/navigation";
+import type { Metadata } from "next";
+import { Tag } from "@/components/ui/Tag";
+import { Reveal } from "@/components/ui/Reveal";
+import { ServicesGrid } from "@/components/services/ServicesGrid";
+import { CtaSection } from "@/components/home/CtaSection";
+import { getServices } from "@/content";
+import { copy } from "@/content/copy";
+
+export const metadata: Metadata = {
+  title: "Studios — Alpha Motion",
+};
 
 /**
- * Same situation as /about: no "Studios" frame exists in the Figma file.
- * "Studios" in the nav refers to the Services section on Home (id="studios"),
- * so a direct hit on this legacy route sends visitors there instead of a
- * dead stub page.
+ * Dedicated page for the nav's "Studios" link. Reuses the exact same
+ * ServicesGrid component and getServices() data source as the Home page's
+ * own Services section (id="studios") -- same CMS-managed content, same
+ * cards, just presented as its own full page with a page-level intro
+ * instead of a teaser nested in Home.
  */
-export default function StudiosPage() {
-  redirect("/#studios");
+export default async function StudiosPage() {
+  const services = await getServices();
+
+  return (
+    <>
+      <section className="flex w-full flex-col items-center gap-16 px-6 py-20 sm:px-12 lg:px-20">
+        <Reveal className="flex max-w-[680px] flex-col items-center gap-[30px] text-center">
+          <Tag>{copy.studios.tag}</Tag>
+          <h1 className="text-[32px] font-bold leading-[1.3] text-white sm:text-[length:var(--text-h1)]">
+            {copy.studios.heading}
+          </h1>
+          <p className="text-[length:var(--text-body2)] text-[#797b85]">{copy.studios.body}</p>
+        </Reveal>
+
+        <ServicesGrid services={services} />
+      </section>
+      <CtaSection />
+    </>
+  );
 }

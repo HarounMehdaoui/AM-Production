@@ -2,10 +2,7 @@ import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { settle } from "./helpers";
 
-// /about and /studios redirect to Home anchors (no Figma frame of their own)
-// -- scanning "/" already covers that content, so they're excluded here to
-// avoid a redundant duplicate scan of the same rendered page.
-const ROUTES = ["/", "/contact", "/projects"];
+const ROUTES = ["/", "/contact", "/projects", "/studios", "/about"];
 
 for (const route of ROUTES) {
   test(`a11y: ${route} has no axe violations`, async ({ page }, testInfo) => {

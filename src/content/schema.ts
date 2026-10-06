@@ -62,9 +62,25 @@ export const heroMediaSchema = z.object({
   videoUrl: z.string(),
 });
 
+// The /about page's team roster -- unbounded, CMS-managed, same
+// published/order pattern as every other listing entity.
+export const teamMemberSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  role: z.string(),
+  bio: z.string(),
+  // Nullable, same reasoning as Project.media: render a brand-toned
+  // placeholder rather than a broken/empty image when no real photo has
+  // been uploaded yet (see TeamGrid.tsx).
+  photo: z.string().nullable(),
+  published: z.boolean().default(true),
+  order: z.number().default(0),
+});
+
 export type Project = z.infer<typeof projectSchema>;
 export type Service = z.infer<typeof serviceSchema>;
 export type Testimonial = z.infer<typeof testimonialSchema>;
 export type Client = z.infer<typeof clientSchema>;
 export type CircleTickerImage = z.infer<typeof circleTickerImageSchema>;
 export type HeroMedia = z.infer<typeof heroMediaSchema>;
+export type TeamMember = z.infer<typeof teamMemberSchema>;

@@ -60,11 +60,6 @@ export function TopNav() {
 
           <nav aria-label="Primary" className="hidden flex-1 items-center justify-center gap-4 lg:flex">
             {navData.primary.map((item) => {
-              // Hash items (Studios/About) intentionally never get the
-              // "active" treatment here -- pathname alone can't tell us
-              // which Home section is currently scrolled into view, and a
-              // real scroll-spy is out of scope. Marking them active
-              // whenever pathname === "/" would make them permanently bold.
               const active = isActiveNavHref(pathname, item.href);
               return (
                 <Link

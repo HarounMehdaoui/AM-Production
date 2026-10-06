@@ -5,6 +5,7 @@ import testimonialsRaw from "./testimonials.json";
 import clientsRaw from "./clients.json";
 import circleTickerRaw from "./circle-ticker.json";
 import heroMediaRaw from "./hero-media.json";
+import teamRaw from "./team.json";
 import {
   projectSchema,
   serviceSchema,
@@ -12,6 +13,7 @@ import {
   clientSchema,
   circleTickerImageSchema,
   heroMediaSchema,
+  teamMemberSchema,
 } from "./schema";
 import { isCmsConfigured, fetchFromCms, fetchFromCmsOptional } from "@/lib/cms";
 
@@ -63,6 +65,13 @@ export async function getCircleTickerImages() {
     ? await fetchFromCms("/v1/circle-ticker", z.array(circleTickerImageSchema))
     : z.array(circleTickerImageSchema).parse(circleTickerRaw);
   return data.sort(byOrder);
+}
+
+export async function getTeamMembers() {
+  const data = isCmsConfigured
+    ? await fetchFromCms("/v1/team-members", z.array(teamMemberSchema))
+    : z.array(teamMemberSchema).parse(teamRaw);
+  return data.filter((m) => m.published).sort(byOrder);
 }
 
 export async function getHeroMedia() {
