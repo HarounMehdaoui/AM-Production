@@ -37,8 +37,10 @@ export const copy = {
   },
   studios: {
     tag: "Studios",
-    heading: "What we do, built for every production",
-    body: "From first frame to final grade, our studio brings the crew, the gear, and the craft to bring your story to life.",
+    heading: "Step inside the studio",
+    body: "The space where every production comes together — real gear, real light, and the room we call home.",
+    servicesTag: "What We Do",
+    servicesHeading: "Built for every kind of shoot",
   },
   about: {
     tag: "About Us",

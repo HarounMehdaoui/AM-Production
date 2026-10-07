@@ -6,6 +6,7 @@ import clientsRaw from "./clients.json";
 import circleTickerRaw from "./circle-ticker.json";
 import heroMediaRaw from "./hero-media.json";
 import teamRaw from "./team.json";
+import studioGalleryRaw from "./studio-gallery.json";
 import {
   projectSchema,
   serviceSchema,
@@ -14,6 +15,7 @@ import {
   circleTickerImageSchema,
   heroMediaSchema,
   teamMemberSchema,
+  studioImageSchema,
 } from "./schema";
 import { isCmsConfigured, fetchFromCms, fetchFromCmsOptional } from "@/lib/cms";
 
@@ -72,6 +74,17 @@ export async function getTeamMembers() {
     ? await fetchFromCms("/v1/team-members", z.array(teamMemberSchema))
     : z.array(teamMemberSchema).parse(teamRaw);
   return data.filter((m) => m.published).sort(byOrder);
+}
+
+export async function getStudioGallery() {
+  const localDefault = z.array(studioImageSchema).parse(studioGalleryRaw);
+  if (!isCmsConfigured) return localDefault.sort(byOrder);
+  // Optional, not required: unlike every other listing getter, this entity
+  // is new and a CMS may not have it set up yet (see the "Studio Gallery
+  // CMS prompt" this page shipped with) -- a 404 here should fall back to
+  // the local photos, the same as getHeroMedia(), not 500 the whole page.
+  const cmsValue = await fetchFromCmsOptional("/v1/studio-gallery", z.array(studioImageSchema));
+  return (cmsValue ?? localDefault).sort(byOrder);
 }
 
 export async function getHeroMedia() {

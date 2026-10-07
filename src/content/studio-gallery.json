@@ -1,0 +1,14 @@
+[
+  {
+    "id": "studio-gear-1",
+    "imageUrl": "/assets/support/camera-macro.png",
+    "caption": "Our gear",
+    "order": 0
+  },
+  {
+    "id": "studio-gear-2",
+    "imageUrl": "/assets/support/portrait-camera-top.png",
+    "caption": "Studio kit",
+    "order": 1
+  }
+]

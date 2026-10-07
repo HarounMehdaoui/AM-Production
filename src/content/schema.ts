@@ -77,6 +77,16 @@ export const teamMemberSchema = z.object({
   order: z.number().default(0),
 });
 
+// /studios page gallery -- same lightweight {id, imageUrl, order} shape as
+// circleTickerImageSchema (no publish toggle, just a visible image slot),
+// plus an optional caption since these are shown in a grid, not a ticker.
+export const studioImageSchema = z.object({
+  id: z.string(),
+  imageUrl: z.string(),
+  caption: z.string().nullable(),
+  order: z.number().default(0),
+});
+
 export type Project = z.infer<typeof projectSchema>;
 export type Service = z.infer<typeof serviceSchema>;
 export type Testimonial = z.infer<typeof testimonialSchema>;
@@ -84,3 +94,4 @@ export type Client = z.infer<typeof clientSchema>;
 export type CircleTickerImage = z.infer<typeof circleTickerImageSchema>;
 export type HeroMedia = z.infer<typeof heroMediaSchema>;
 export type TeamMember = z.infer<typeof teamMemberSchema>;
+export type StudioImage = z.infer<typeof studioImageSchema>;
