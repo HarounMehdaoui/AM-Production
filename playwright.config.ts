@@ -23,13 +23,23 @@ export default defineConfig({
     },
   },
   use: {
-    baseURL: "http://localhost:3000",
+    // Not port 3000: that's where the CMS dev server normally runs (both in
+    // local dev and in this project's own CMS-integration test config), and
+    // this suite's webServer trusts `reuseExistingServer` -- if anything is
+    // already listening on whatever port this points at when the suite
+    // starts, Playwright assumes it's the site and tests against it
+    // unverified. That happened for real: the CMS answered every request
+    // with its own 404s while every visual baseline silently "passed"
+    // (comparing the broken page against itself). A dedicated port the CMS
+    // never uses removes the ambiguity instead of relying on remembering to
+    // stop the CMS first.
+    baseURL: "http://localhost:4000",
     trace: "retain-on-failure",
     ...devices["Desktop Chrome"],
   },
   webServer: {
-    command: "npm run build && npm run start",
-    url: "http://localhost:3000",
+    command: "npm run build && next start -p 4000",
+    url: "http://localhost:4000",
     reuseExistingServer: !process.env.CI,
     timeout: 180_000,
   },

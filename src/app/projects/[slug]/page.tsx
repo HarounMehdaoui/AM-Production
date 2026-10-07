@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { CtaSection } from "@/components/home/CtaSection";
 import { getProjects } from "@/content";
 
 /**
@@ -37,32 +36,29 @@ export default async function ProjectDetailPage({
   if (!project) notFound();
 
   return (
-    <>
-      <section className="flex w-full flex-col items-center gap-10 px-6 py-20 sm:px-12 lg:px-20">
-        <div className="flex w-full max-w-[792px] flex-col gap-6">
-          <Link href="/projects" className="text-[length:var(--text-body3)] text-white/60 transition-colors hover:text-white">
-            ← All projects
-          </Link>
-          <div className="flex flex-col gap-3">
-            <span className="text-[length:var(--text-caption1)] uppercase tracking-widest text-white/50">
-              {project.category}
-            </span>
-            <h1 className="text-[32px] font-bold leading-[1.3] text-white sm:text-[length:var(--text-h1)]">
-              {project.title}
-            </h1>
-          </div>
-          <p className="text-[length:var(--text-body2)] text-white/70">{project.description}</p>
-          {project.videoEmbed && (
-            // CMS-authored HTML only -- see ProjectModal.tsx for why this is safe here
-            // but must never accept arbitrary/user-submitted input.
-            <div
-              className="aspect-video w-full overflow-hidden rounded-2xl [&>iframe]:size-full"
-              dangerouslySetInnerHTML={{ __html: project.videoEmbed }}
-            />
-          )}
+    <section className="flex w-full flex-col items-center gap-10 px-6 py-20 sm:px-12 lg:px-20">
+      <div className="flex w-full max-w-[792px] flex-col gap-6">
+        <Link href="/projects" className="text-[length:var(--text-body3)] text-white/60 transition-colors hover:text-white">
+          ← All projects
+        </Link>
+        <div className="flex flex-col gap-3">
+          <span className="text-[length:var(--text-caption1)] uppercase tracking-widest text-white/50">
+            {project.category}
+          </span>
+          <h1 className="text-[32px] font-bold leading-[1.3] text-white sm:text-[length:var(--text-h1)]">
+            {project.title}
+          </h1>
         </div>
-      </section>
-      <CtaSection />
-    </>
+        <p className="text-[length:var(--text-body2)] text-white/70">{project.description}</p>
+        {project.videoEmbed && (
+          // CMS-authored HTML only -- see ProjectModal.tsx for why this is safe here
+          // but must never accept arbitrary/user-submitted input.
+          <div
+            className="aspect-video w-full overflow-hidden rounded-2xl [&>iframe]:size-full"
+            dangerouslySetInnerHTML={{ __html: project.videoEmbed }}
+          />
+        )}
+      </div>
+    </section>
   );
 }

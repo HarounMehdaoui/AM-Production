@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Tag } from "@/components/ui/Tag";
 import { Reveal } from "@/components/ui/Reveal";
 import { ServicesGrid } from "@/components/services/ServicesGrid";
-import { CtaSection } from "@/components/home/CtaSection";
 import { getServices } from "@/content";
 import { copy } from "@/content/copy";
 
@@ -21,19 +20,16 @@ export default async function StudiosPage() {
   const services = await getServices();
 
   return (
-    <>
-      <section className="flex w-full flex-col items-center gap-16 px-6 py-20 sm:px-12 lg:px-20">
-        <Reveal className="flex max-w-[680px] flex-col items-center gap-[30px] text-center">
-          <Tag>{copy.studios.tag}</Tag>
-          <h1 className="text-[32px] font-bold leading-[1.3] text-white sm:text-[length:var(--text-h1)]">
-            {copy.studios.heading}
-          </h1>
-          <p className="text-[length:var(--text-body2)] text-[#797b85]">{copy.studios.body}</p>
-        </Reveal>
+    <section className="flex w-full flex-col items-center gap-16 px-6 py-20 sm:px-12 lg:px-20">
+      <Reveal className="flex max-w-[680px] flex-col items-center gap-[30px] text-center">
+        <Tag>{copy.studios.tag}</Tag>
+        <h1 className="text-[32px] font-bold leading-[1.3] text-white sm:text-[length:var(--text-h1)]">
+          {copy.studios.heading}
+        </h1>
+        <p className="text-[length:var(--text-body2)] text-[#797b85]">{copy.studios.body}</p>
+      </Reveal>
 
-        <ServicesGrid services={services} />
-      </section>
-      <CtaSection />
-    </>
+      <ServicesGrid services={services} />
+    </section>
   );
 }
